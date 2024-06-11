@@ -2,8 +2,11 @@ package br.com.eduarda.orcamento.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +16,9 @@ public class Municipio {
     @Id
     private int id;
     private String nome;
+
+    @OneToMany(mappedBy="municipio")
+    private List<Cliente> clienteList = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

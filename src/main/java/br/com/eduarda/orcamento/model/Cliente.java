@@ -96,4 +96,7 @@ public class Cliente {
     private String telefone;
     private String celular;
 
+    @ManyToOne
+    @JoinColumn(name="idmunicipio")
+    private Municipio municipio;
 }
