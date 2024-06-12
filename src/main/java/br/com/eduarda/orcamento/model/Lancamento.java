@@ -1,8 +1,6 @@
 package br.com.eduarda.orcamento.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,11 +10,17 @@ import java.util.Objects;
 @Table (name="lancamento")
 public class Lancamento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private LocalDate datalancamento;
-    private Long idcliente;
+    private Long id_cliente;
     private String tipolancamento;
     private BigDecimal valorlancamento;
+
+    @ManyToOne
+    @JoinColumn(name="idcliente")
+    private Cliente cliente;
 
     @Override
     public boolean equals(Object o) {
@@ -48,11 +52,11 @@ public class Lancamento {
     }
 
     public Long getIdcliente() {
-        return idcliente;
+        return id_cliente;
     }
 
     public void setIdcliente(Long idcliente) {
-        this.idcliente = idcliente;
+        this.id_cliente = idcliente;
     }
 
     public String getTipolancamento() {

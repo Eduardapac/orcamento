@@ -2,11 +2,33 @@ package br.com.eduarda.orcamento.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name="cliente")
 public class Cliente {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Long id;
+    private String nome;
+    private String endereco;
+    private String numero;
+    private String bairro;
+    private int id_municipio;
+    private String telefone;
+    private String celular;
+
+    @ManyToOne
+    @JoinColumn(name="idmunicipio")
+    private Municipio municipio;
+
+    @OneToMany (mappedBy ="cliente")
+    private List<Lancamento> lancamentoList= new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,19 +106,5 @@ public class Cliente {
         this.celular = celular;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
-    private String nome;
-    private String endereco;
-    private String numero;
-    private String bairro;
-    private int id_municipio;
-    private String telefone;
-    private String celular;
-
-    @ManyToOne
-    @JoinColumn(name="idmunicipio")
-    private Municipio municipio;
 }
