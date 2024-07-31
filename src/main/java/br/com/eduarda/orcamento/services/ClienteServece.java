@@ -1,7 +1,7 @@
-package br.com.eduarda.orcamento.model.services;
+package br.com.eduarda.orcamento.services;
 
 import br.com.eduarda.orcamento.model.Cliente;
-import br.com.eduarda.orcamento.model.repositories.ClienteRepository;
+import br.com.eduarda.orcamento.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

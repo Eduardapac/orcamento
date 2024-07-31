@@ -1,4 +1,4 @@
-package br.com.eduarda.orcamento.model.repositories;
+package br.com.eduarda.orcamento.repositories;
 
 import br.com.eduarda.orcamento.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
