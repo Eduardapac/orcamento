@@ -3,7 +3,9 @@ package br.com.eduarda.orcamento.services;
 import br.com.eduarda.orcamento.model.Municipio;
 import br.com.eduarda.orcamento.repositories.MunicipioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MunicipioService {
 
     @Autowired

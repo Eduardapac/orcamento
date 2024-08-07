@@ -14,6 +14,7 @@ public class Municipio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
+    private String estado;
 
     @OneToMany(mappedBy="municipio")
     private List<Cliente> clienteList = new ArrayList<>();
@@ -31,7 +32,7 @@ public class Municipio {
         return Objects.hash(id);
     }
 
-    private String estado;
+
 
     public int getId() {
         return id;
