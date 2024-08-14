@@ -18,13 +18,22 @@ public class Cliente {
     private String endereco;
     private String numero;
     private String bairro;
-    private int id_municipio;
     private String telefone;
     private String celular;
 
+
+
     @ManyToOne
-    @JoinColumn(name="idmunicipio")
+    @JoinColumn(name="id_municipio")
     private Municipio municipio;
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
 
     @OneToMany (mappedBy ="cliente")
     private List<Lancamento> lancamentoList= new ArrayList<>();
@@ -80,14 +89,6 @@ public class Cliente {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
-    }
-
-    public int getId_municipio() {
-        return id_municipio;
-    }
-
-    public void setId_municipio(int id_municipio) {
-        this.id_municipio = id_municipio;
     }
 
     public String getTelefone() {

@@ -14,13 +14,20 @@ public class Lancamento {
 
     private Long id;
     private LocalDate datalancamento;
-    private Long id_cliente;
     private String tipolancamento;
     private BigDecimal valorlancamento;
 
     @ManyToOne
     @JoinColumn(name="idcliente")
     private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -49,14 +56,6 @@ public class Lancamento {
 
     public void setDatalancamento(LocalDate datalancamento) {
         this.datalancamento = datalancamento;
-    }
-
-    public Long getIdcliente() {
-        return id_cliente;
-    }
-
-    public void setIdcliente(Long idcliente) {
-        this.id_cliente = idcliente;
     }
 
     public String getTipolancamento() {

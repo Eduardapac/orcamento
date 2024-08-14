@@ -1,1 +1,1 @@
-alter table cliente Modify nomecliente varchar(200);
+alter table cliente Modify nome varchar(200);
