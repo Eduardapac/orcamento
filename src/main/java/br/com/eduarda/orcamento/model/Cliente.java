@@ -23,7 +23,6 @@ public class Cliente {
     private String celular;
 
 
-
     @ManyToOne
     @JoinColumn(name="id_municipio")
     private Municipio municipio;
@@ -108,6 +107,5 @@ public class Cliente {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-
 
 }

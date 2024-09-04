@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/lancamentos")
@@ -24,6 +25,12 @@ public class LancamentoController {
     @GetMapping()
     public List<Lancamento> listarTodosLancamentos(){
         return lancamentoRepository.findAll(Sort.by("tipolancamento").ascending());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Lancamento> buscarPeloCodigo(@PathVariable int id){
+        Optional<Lancamento> lancamento = lancamentoRepository.findById(id);
+        return lancamento.isPresent() ? ResponseEntity.ok(lancamento.get()): ResponseEntity.notFound() .build();
     }
 
     @PostMapping()
