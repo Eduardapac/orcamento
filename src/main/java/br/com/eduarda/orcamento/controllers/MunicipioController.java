@@ -39,4 +39,9 @@ public class MunicipioController {
        Municipio municipioSalvar = municipioService.salvar(municipio);
        return ResponseEntity.status(HttpStatus.CREATED).body(municipioSalvar);
    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable int id){municipioRepository.deleteById(id);}
+
 }

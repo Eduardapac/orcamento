@@ -38,4 +38,8 @@ public class LancamentoController {
         Lancamento lancamentoSalva = lancamentoService.salvar(lancamento);
         return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalva);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable int id){lancamentoRepository.deleteById(id);}
 }

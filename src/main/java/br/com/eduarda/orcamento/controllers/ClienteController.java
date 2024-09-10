@@ -38,4 +38,8 @@ public class ClienteController {
         Cliente clienteSalva = clienteServece.salvar(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalva);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable int id){clienteRepository.deleteById(id);}
 }
