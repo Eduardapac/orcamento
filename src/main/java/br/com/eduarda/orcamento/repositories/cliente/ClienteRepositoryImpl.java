@@ -1,7 +1,8 @@
-package br.com.eduarda.orcamento.repositories.categoria;
+package br.com.eduarda.orcamento.repositories.cliente;
 
-import br.com.eduarda.orcamento.model.Municipio;
-import br.com.eduarda.orcamento.repositories.filter.MunicipioFilter;
+import br.com.eduarda.orcamento.dto.ClienteDto;
+import br.com.eduarda.orcamento.model.Cliente;
+import br.com.eduarda.orcamento.repositories.filter.ClienteFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -17,39 +18,47 @@ import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MunicipioRepositoryImpl implements MunicipioRepositoryQuery {
+
+public class ClienteRepositoryImpl  implements ClienteRepositoryQuery{
     @PersistenceContext
     private EntityManager manager;
 
     @Override
-    public Page<Municipio> filtrar(MunicipioFilter municipioFilter, Pageable pageable) {
+    public Page<ClienteDto> filtrar(ClienteFilter clienteFilter, Pageable pageable) {
         CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<Municipio> criteria = builder.createQuery(Municipio.class);
-        Root<Municipio> root = criteria.from(Municipio.class);
+        CriteriaQuery<ClienteDto> criteria = builder.createQuery(ClienteDto.class);
+        Root<Cliente> root = criteria.from(Cliente.class);
 
-        Predicate[] predicates = criarRestricoes(municipioFilter, builder, root);
+        criteria.select(builder.construct(ClienteDto.class
+                , root.get("nome")
+                , root.get("endereco")
+                , root.get("numero")));
+
+        Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
         criteria.where(predicates);
         criteria.orderBy(builder.asc(root.get("nome")));
 
-        TypedQuery<Municipio> query = manager.createQuery(criteria);
+        TypedQuery<ClienteDto> query = manager.createQuery(criteria);
         adicionarRestricoesPaginacao(query, pageable);
-        return new PageImpl<>(query.getResultList(), pageable, total(municipioFilter));
+
+        return new PageImpl<>(query.getResultList(), pageable, total(clienteFilter));
     }
 
-    private long total(MunicipioFilter municipioFilter){
+    private long total(ClienteFilter clienteFilter){
+
         CriteriaBuilder builder = manager.getCriteriaBuilder();
         CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-        Root<Municipio> root = criteria.from(Municipio.class);
+        Root<Cliente> root = criteria.from(Cliente.class);
 
-        Predicate[] predicates = criarRestricoes(municipioFilter, builder,root);
+        Predicate[] predicates = criarRestricoes(clienteFilter, builder, root);
         criteria.where(predicates);
 
         criteria.select(builder.count(root));
         return manager.createQuery(criteria).getSingleResult();
     }
 
-    private void adicionarRestricoesPaginacao(TypedQuery<Municipio> query, Pageable pageable){
-        int paginaAtual = pageable.getPageNumber();
+    private void adicionarRestricoesPaginacao(TypedQuery<ClienteDto> query, Pageable pageable){
+        int paginaAtual = pageable.getPageNumber();;
         int totalRegistroPorPagina = pageable.getPageSize();
         int primeiroRegistroDaPagina = paginaAtual*totalRegistroPorPagina;
 
@@ -57,13 +66,14 @@ public class MunicipioRepositoryImpl implements MunicipioRepositoryQuery {
         query.setMaxResults(totalRegistroPorPagina);
     }
 
-    private Predicate[] criarRestricoes(MunicipioFilter municipioFilter, CriteriaBuilder builder, Root<Municipio> root){
+    private Predicate[] criarRestricoes(ClienteFilter clienteFilter, CriteriaBuilder builder, Root<Cliente> root) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (!StringUtils.isEmpty(municipioFilter.getNome())){
+        if (!StringUtils.isEmpty(clienteFilter.getNome())){
             predicates.add(builder.like(builder.lower(root.get("nome")),
-                    "%" +municipioFilter.getNome().toLowerCase() + "%"));
+                    "%" + clienteFilter.getNome().toLowerCase() + "%"));
         }
         return predicates.toArray(new Predicate[predicates.size()]);
     }
 }
+

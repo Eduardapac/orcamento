@@ -1,4 +1,4 @@
-package br.com.eduarda.orcamento.repositories.categoria;
+package br.com.eduarda.orcamento.repositories.municipio;
 
 import br.com.eduarda.orcamento.model.Municipio;
 import br.com.eduarda.orcamento.repositories.filter.MunicipioFilter;
